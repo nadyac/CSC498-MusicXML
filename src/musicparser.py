@@ -1,28 +1,49 @@
 #!/usr/bin/python
 
-from xml.dom.minidom import parse
-import xml.dom.minidom
+import xml.etree.ElementTree as ET
 
 # Open XML document using minidom parser
-DOMTree = xml.dom.minidom.parse("ActorPreludeSample.xml")
-# collection = DOMTree.documentElement
-# if collection.hasAttribute("score-partwise"):
-#    print "Root element : %s" % collection.getAttribute("score-partwise")
+DOMTree = ET.parse("timewise-ActorPrelude.xml")
+#DOMTree = ET.parse("timewise-ActorPrelude.xml")
+root = DOMTree.getroot()
 
-collection = DOMTree.documentElement
-print collection
-print collection.getElementsByTagName("movement-title")[0]
+print "Instrument parts and ID:"
+print "========================"
+for part in root.iter('score-part'):
+	print "%s" % part[0].text + ", id: %s" % part.attrib['id']
 
-# Get all some of the music attributes in the collection
-musicAttributes = DOMTree.getElementsByTagName("part-name")[0]
-print musicAttributes.childNodes[0].data
+print "\n"
+print "Measures:"
+print "==========="
+for measure in root.iter('measure'):
+	print "measure " + "%s" % measure.attrib['number']
+	#attributes tag that contains the beats
+	measureAttributeTag = measure[0][1]
+	time = measureAttributeTag.find('time')
+	if time is not None:
+		print "> time signature: " + "%s" % time[0].text + "/%s" % time[1].text
 
-attributes = DOMTree.getElementsByTagName("part-name")
-# Print detail of each attribute chosen.
-for attribute in attributes:
-    print " "
-    print "*****sheetmusic attributes*****"
+	#get tempo from the sound tag (inside a measure) if there is one
+	if measure[0].find('sound') is not None:
+		tempo = measure[0][2]
+		if tempo.tag == 'sound':
+			print "> tempo: %s" % tempo.attrib['tempo']
 
-    type = attribute.getElementsByTagName('score-part')
-    print "Instrument: %s" % attribute.childNodes[0].data
-    #print "Instrument: %s" % type
+	#get dynamics tag (inside a measure) if there is one
+	# if measure.find('part') is not None:
+	for part in measure:
+		for partElem in part:
+			if partElem.find('direction') is not None:
+				direction = partElem.find('direction')
+				print direction.tag
+		# if part.find('direction') is not None:
+		# 	direction = part.iter('direction')
+		# 	if direction.find('direction-type') is not None:
+		# 		print "*****direction type ******"
+		# 		directionType = direction.iter('direction-type')
+		# 		if directionType.find('dynamics') is not None:
+		# 			dynamics = directionType.find('dynamics')
+		# 			print "****dynamics****"
+
+print "\n"
+print "Done."
