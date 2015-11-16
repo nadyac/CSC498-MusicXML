@@ -17,6 +17,8 @@ The goal is to parse and extract sheet music features like temp, dynamic, and ar
 The following instructions assume that Python 2.7 is installed.
 
 1) Using the terminal, navigate to the src directory containing musicParser.py and the XML sheet music.
+
 2) Type py musicParser.py 
+
 3) Results should print out to console. 
 
