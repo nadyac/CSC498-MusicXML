@@ -1,4 +1,4 @@
-# CSC498-MusicXML
+# CSC498-MusicXML Parser
 Music XML CSC498 research project. Accurate as of 11/16/2015.
 
 ## Project Description
