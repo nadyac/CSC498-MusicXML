@@ -1,49 +1,58 @@
 #!/usr/bin/python
 
 import xml.etree.ElementTree as ET
+import io
 
 # Open XML document using minidom parser
-DOMTree = ET.parse("timewise-ActorPrelude.xml")
-#DOMTree = ET.parse("timewise-ActorPrelude.xml")
+fileName = "timewise-ActorPrelude.xml"
+DOMTree = ET.parse(fileName)
 root = DOMTree.getroot()
 
-print "Instrument parts and ID:"
-print "========================"
-for part in root.iter('score-part'):
-	print "%s" % part[0].text + ", id: %s" % part.attrib['id']
+outfile = fileName.replace(".",'')
+with open(outfile + "-output.xml", mode='wt') as outputFile:
 
-print "\n"
-print "Measures:"
-print "==========="
-for measure in root.iter('measure'):
-	print "measure " + "%s" % measure.attrib['number']
-	#attributes tag that contains the beats
-	measureAttributeTag = measure[0][1]
-	time = measureAttributeTag.find('time')
-	if time is not None:
-		print "> time signature: " + "%s" % time[0].text + "/%s" % time[1].text
+	print "Instrument parts and ID:"
+	print "========================"
+	for part in root.iter('score-part'):
+		print "%s" % part[0].text + ", id: %s" % part.attrib['id']
 
-	#get tempo from the sound tag (inside a measure) if there is one
-	if measure[0].find('sound') is not None:
-		tempo = measure[0][2]
-		if tempo.tag == 'sound':
-			print "> tempo: %s" % tempo.attrib['tempo']
+	print "\n"
+	print "Measures:"
+	print "==========="
+	for measure in root.iter('measure'):
+		measure_str = "measure " + "%s" % measure.attrib['number']
+		print measure_str
+		outputFile.write(measure_str + "\n")
 
-	#get dynamics tag (inside a measure) if there is one
-	# if measure.find('part') is not None:
-	for part in measure:
-		for partElem in part:
-			if partElem.find('direction') is not None:
-				direction = partElem.find('direction')
-				print direction.tag
-		# if part.find('direction') is not None:
-		# 	direction = part.iter('direction')
-		# 	if direction.find('direction-type') is not None:
-		# 		print "*****direction type ******"
-		# 		directionType = direction.iter('direction-type')
-		# 		if directionType.find('dynamics') is not None:
-		# 			dynamics = directionType.find('dynamics')
-		# 			print "****dynamics****"
+		# attributes tag that contains the beats
+		measureAttributeTag = measure[0][1]
+		time = measureAttributeTag.find('time')
+		if time is not None:
+			time_signature = "time signature: " + "%s" % time[0].text + "/%s" % time[1].text
+			print "\t" + time_signature
+			outputFile.write(time_signature + "\n")
 
+		# get tempo from the sound tag (inside a measure) if there is one
+		if measure[0].find('sound') is not None:
+			tempo = measure[0][2]
+			if tempo.tag == 'sound':
+				tempo_str = "tempo: %s" % tempo.attrib['tempo']
+				print "\t" + tempo_str
+				outputFile.write(temp_str + "\n")
+		else: 
+			print "no tempo data."
+
+		# get dynamics tag (inside a measure) if there is one
+		# if measure.find('part') is not None:
+		for part in measure: #part
+			for partElem in part: #direction
+				for subElems in partElem: #direction-type
+					if subElems.find('dynamics') is not None:
+						dynamicsTag = subElems.find('dynamics')
+						dynamics_str = dynamicsTag[0].tag
+						print "\t" + part.attrib['id'] + " dynamic-> " + dynamicsTag[0].tag
+						outputFile.write(part.attrib['id'] + " " + dynamics_str + "\n")
+
+outputFile.close()
 print "\n"
 print "Done."
