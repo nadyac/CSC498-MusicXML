@@ -33,14 +33,28 @@ with open(outfile + "-output.xml", mode='wt') as outputFile:
 			outputFile.write(time_signature + "\n")
 
 		# get tempo from the sound tag (inside a measure) if there is one
-		if measure[0].find('sound') is not None:
-			tempo = measure[0][2]
-			if tempo.tag == 'sound':
-				tempo_str = "tempo: %s" % tempo.attrib['tempo']
-				print "\t" + tempo_str
-				outputFile.write(temp_str + "\n")
-		else: 
-			print "no tempo data."
+		# if measure[0].find('sound') is not None:
+		# 	tempo = measure[0][2]
+		# 	if tempo.tag == 'sound':
+		# 		tempo_str = "tempo: %s" % tempo.attrib['tempo']
+		# 		print "\t" + tempo_str
+		# 		outputFile.write(temp_str + "\n")
+		# else: 
+		# 	print "no tempo data."
+
+		# print measure[0]
+		for direction in measure.iter('direction'):
+			if direction.find('direction-type') is None:
+				continue
+			else:
+				directionType = direction.findall('direction-type')
+				for m in directionType: 
+					metronome = m.find('metronome')
+					if metronome is not None:
+						for tags in metronome:
+							tempo = tags.text
+							print "\t" + tags.text
+							outputFile.write(tempo + "\n")
 
 		# get dynamics tag (inside a measure) if there is one
 		# if measure.find('part') is not None:
