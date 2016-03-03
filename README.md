@@ -1,5 +1,5 @@
 # CSC498-MusicXML Parser
-Music XML CSC498 research project. Accurate as of 11/16/2015.
+Music XML CSC498 research project. Accurate as of 3/01/2015.
 
 ## Project Description
 The goal is to parse and extract sheet music features like temp, dynamic, and articulation and later map those features to animations that will help a conducting robot do their corresponding arm movements.
