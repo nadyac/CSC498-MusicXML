@@ -13,7 +13,7 @@ The goal is to parse and extract sheet music features like temp, dynamic, and ar
 - ElementTree lib for XML parsing
 - MusicXML samples
 
-## To run the project 
+## To run the Python Script that extracts MusicXML features
 The following instructions assume that Python 2.7 is installed.
 
 1) Using the terminal, navigate to the src directory containing musicParser.py and the XML sheet music.
@@ -21,4 +21,7 @@ The following instructions assume that Python 2.7 is installed.
 2) Type py musicParser.py 
 
 3) Results should print out to console. 
+
+## To run the Processing UI
+0) Install the Interfascia and G4P Processing. 
 
