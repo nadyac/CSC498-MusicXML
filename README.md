@@ -25,3 +25,10 @@ The following instructions assume that Python 2.7 is installed.
 ## To run the Processing UI
 0) Install the Interfascia and G4P Processing. 
 
+ <b>To install Interfacia and G4P:</b>
+- At the top bar, click on the 'Sketch' tab
+- Select the 'Import Library' option
+- Type 'Interfacia' into the search box and it should come up
+- Click 'install' to install Interfacia.
+- Repeat the last two steps to install G4P.
+
