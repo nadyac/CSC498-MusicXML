@@ -17,34 +17,39 @@ float newY;
 float beatLength;
 float framesPerBeat;
 boolean oscillateX = false;
-
+Conductor conductor = new Conductor();
+int meter;
+ArrayList<int[]> motionPositions = new ArrayList<int[]>();
 
 void settings(){
   size(600,350);
-  
 }
+
 void setup() {
   background(0);
   frameRate(60);
-  bpm = 85;
+  meter = 1;
+  bpm = 85;  // this will be obtained dynamically
   beatLength = 60/bpm;
+  
   //calculate how many frames will be drawn between each beat
   framesPerBeat = beatLength*60; //beatLength*frameRate
-  x0 = 200;
-  y0 = 100;
   
+  motionPositions = conductor.doConductingMotions(meter);
+  x0 = motionPositions.get(0)[0];
+  y0 = motionPositions.get(0)[1];
+  println(x0 + " " + y0);
   
   location = new PVector(x0, y0);
   velocity = new PVector(0,5); //velocities in x y directions
   acceleration = new PVector(0,0);
-  xBound = 300;
-  yBound = 300;
+  xBound = motionPositions.get(1)[0];
+  yBound = motionPositions.get(1)[1];
+  println(xBound + " " + yBound);
   
   dy = yBound - y0;
   newY = dy/framesPerBeat;
   velocity2 = new PVector(0,newY);
-  
-  //pg = createGraphics(650, 360);
 }
 
 void draw() {
@@ -56,7 +61,7 @@ void draw() {
   // Add velocity to the location.
   //location.add(velocity);
   location.add(velocity2);
-  println(location.y + " " + frameCount + " " + frameRate);
+  //println(location.y + " " + frameCount + " " + frameRate);
   
 
   if (location.y > yBound) {

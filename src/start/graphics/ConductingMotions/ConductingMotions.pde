@@ -1,5 +1,7 @@
 class Conductor{
   
+   int x0;
+   int y0;
    // Beat patterns, number of motions can be 1, 2, 3, 4 
    int motions;
    
@@ -26,14 +28,16 @@ class Conductor{
      return motions; 
    } 
    
+   
+   
    // Conducting motions specifications
    ArrayList<int[]> doConductingMotions(int meter){
      ArrayList<int[]> motionLocations = new ArrayList<int[]>();
      
      if(meter == 1){
       //do motions for meter 1 
-      int[] position0 = {150,100};
-      int[] position1 = {150,300};
+      int[] position0 = {200,100};
+      int[] position1 = {300,300};
       motionLocations.add(position0);
       motionLocations.add(position1);
      }
