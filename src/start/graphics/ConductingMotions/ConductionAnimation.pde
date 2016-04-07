@@ -16,6 +16,8 @@ boolean oscillateX = false;
 Conductor conductor = new Conductor();
 int meter;
 int beat = 1;
+int delayCounter= 0;
+int delay = 5;
 ArrayList<int[]> motionPositions = new ArrayList<int[]>();
 
 void settings(){
@@ -30,7 +32,7 @@ void setup() {
   beatLength = 60/bpm;
   
   //calculate how many frames will be drawn between each beat
-  framesPerBeat = (beatLength*60)-1; //beatLength*frameRate
+  framesPerBeat = (beatLength*60)- 1 - delay; //beatLength*frameRate
   
   motionPositions = conductor.doConductingMotions(meter);
   x0 = motionPositions.get(0)[0];
@@ -104,30 +106,35 @@ void draw() {
   
   if (meter == 3){
     
-    if(beat == 1){ //3->1
+    if(beat == 1 && delayCounter == 0){ //3->1
       if(location.x > x1 && location.y < y1){
         location.add(velocity);
       } else{
         location.x = x1;
         location.y = y1;
         beat = 2;
+        delayCounter = delay;
       }
-    } else if(beat == 2){
+    } else if(beat == 2 && delayCounter == 0){
         if(location.x <= x2 && location.y <= y2){
           location.add(velocity2);
         } else{
           location.x = x2;
           location.y = y2;
           beat = 3;
+          delayCounter = delay;
         }
-    } else if (beat == 3){
+    } else if (beat == 3 && delayCounter== 0){
         if(location.x >= x0 && location.y >= y0){
           location.add(velocity3);
         } else{
           location.x = x0;
           location.y = y0;
           beat = 1;
+          delayCounter = delay;
         }
+    } else if(delayCounter > 0){
+      delayCounter--;
     }
     
     println("beat: " + beat + " " + location.x + ", " + location.y + " " + frameCount + " " + frameRate);
