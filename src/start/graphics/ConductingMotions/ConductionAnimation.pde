@@ -1,19 +1,15 @@
 
 PGraphics pg;
 PVector location;  // Location of shape
-PVector velocity;  // Velocity of shape
+PVector velocity, velocity2, velocity3;  // Velocity of shape
 PVector acceleration;   // Gravity acts at the shape's acceleration
-PVector velocity2;
-float xBound;
-float yBound;
-float x0;
-float y0;
-float x;
-float y;
-float dx;
-float dy;
+float x, x0, x1, x2, x3;
+float y, y0, y1, y2, y3;
+float dx, dx2, dx3;
+float dy, dy2, dy3;
 float bpm;
-float newY;
+float newY, newY2, newY3;
+float newX, newX2, newX3;
 float beatLength;
 float framesPerBeat;
 boolean oscillateX = false;
@@ -28,7 +24,7 @@ void settings(){
 void setup() {
   background(0);
   frameRate(60);
-  meter = 1;
+  meter = 3;
   bpm = 85;  // this will be obtained dynamically
   beatLength = 60/bpm;
   
@@ -41,15 +37,49 @@ void setup() {
   println(x0 + " " + y0);
   
   location = new PVector(x0, y0);
-  velocity = new PVector(0,5); //velocities in x y directions
+  //velocity = new PVector(0,5); //velocities in x y directions
   acceleration = new PVector(0,0);
-  xBound = motionPositions.get(1)[0];
-  yBound = motionPositions.get(1)[1];
-  println(xBound + " " + yBound);
   
-  dy = yBound - y0;
-  newY = dy/framesPerBeat;
-  velocity2 = new PVector(0,newY);
+  if(meter == 1){
+    x1 = motionPositions.get(1)[0];
+    y1 = motionPositions.get(1)[1];
+    println(x1 + " " + y1);
+  
+    dy = y1 - y0;
+    newY = dy/framesPerBeat;
+    velocity = new PVector(0,newY);
+  }
+  
+  if(meter == 3){
+    x1 = motionPositions.get(1)[0];
+    y1 = motionPositions.get(1)[1];
+    println("x1: " + x1 + " y1: " + y1);
+    
+    dx = x1 - x0;
+    newX = dx/framesPerBeat;
+    
+    dy = y1 - y0;
+    newY = dy/framesPerBeat;
+    velocity = new PVector(newX, newY);
+    
+    x2 = motionPositions.get(2)[0];
+    y2 = motionPositions.get(2)[1];
+    println("x2: " + x2 + " y2: " + y2);
+    dx2 = x2 - x1;
+    newX2 = dx2/framesPerBeat;
+    
+    //dy2 = y2 - y1;
+    //newY2 = dy2/framesPerBeat;
+    velocity2 = new PVector(newX2, 0);
+    
+    //go back to original position x0, y0
+    dx3 = x0 - x2;
+    newX3 = dx3/framesPerBeat;
+    
+    dy3 = y0 - y2;
+    newY3 = dy3/framesPerBeat;
+    velocity3 = new PVector(newX3, newY3);
+  }
 }
 
 void draw() {
@@ -58,18 +88,32 @@ void draw() {
   fill(255);
   noStroke();
   
-  // Add velocity to the location.
-  //location.add(velocity);
-  location.add(velocity2);
-  //println(location.y + " " + frameCount + " " + frameRate);
   
-
-  if (location.y > yBound) {
+  if (meter == 1){
     
-    // Reduceg velocity ever so slightly  when it hits the bottom
-    location.y = y0;
-    location.x = x0;
-
+    // Add velocity to the location.
+    location.add(velocity);
+    //println(location.y + " " + frameCount + " " + frameRate);
+  
+    if (location.y > y1) {
+      // Reduce velocity ever so slightly  when it hits the bottom
+      location.y = y0;
+      location.x = x0;
+  
+    }
+  }
+  
+  if (meter == 3){
+    //3 to 1
+    if(location.y < y1 && location.x > x1){
+      location.add(velocity);
+    } else if((location.y > y1 && location.x < x2)){
+      // Reduce velocity ever so slightly  when it hits the bottom
+      location.add(velocity2);
+    } else if (location.x > x0 && location.y > y0){
+        location.add(velocity3);
+     }
+    println(location.x + ", " + location.y);
   }
 
   // Display circle at location vector
