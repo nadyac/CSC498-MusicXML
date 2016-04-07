@@ -15,21 +15,22 @@ float framesPerBeat;
 boolean oscillateX = false;
 Conductor conductor = new Conductor();
 int meter;
+int beat = 1;
 ArrayList<int[]> motionPositions = new ArrayList<int[]>();
 
 void settings(){
-  size(600,350);
+  size(600,650);
 }
 
 void setup() {
   background(0);
   frameRate(60);
   meter = 3;
-  bpm = 85;  // this will be obtained dynamically
+  bpm = 60;  // this will be obtained dynamically
   beatLength = 60/bpm;
   
   //calculate how many frames will be drawn between each beat
-  framesPerBeat = beatLength*60; //beatLength*frameRate
+  framesPerBeat = (beatLength*60)-1; //beatLength*frameRate
   
   motionPositions = conductor.doConductingMotions(meter);
   x0 = motionPositions.get(0)[0];
@@ -68,8 +69,6 @@ void setup() {
     dx2 = x2 - x1;
     newX2 = dx2/framesPerBeat;
     
-    //dy2 = y2 - y1;
-    //newY2 = dy2/framesPerBeat;
     velocity2 = new PVector(newX2, 0);
     
     //go back to original position x0, y0
@@ -104,16 +103,34 @@ void draw() {
   }
   
   if (meter == 3){
-    //3 to 1
-    if(location.y < y1 && location.x > x1){
-      location.add(velocity);
-    } else if((location.y > y1 && location.x < x2)){
-      // Reduce velocity ever so slightly  when it hits the bottom
-      location.add(velocity2);
-    } else if (location.x > x0 && location.y > y0){
-        location.add(velocity3);
-     }
-    println(location.x + ", " + location.y);
+    
+    if(beat == 1){ //3->1
+      if(location.x > x1 && location.y < y1){
+        location.add(velocity);
+      } else{
+        location.x = x1;
+        location.y = y1;
+        beat = 2;
+      }
+    } else if(beat == 2){
+        if(location.x <= x2 && location.y <= y2){
+          location.add(velocity2);
+        } else{
+          location.x = x2;
+          location.y = y2;
+          beat = 3;
+        }
+    } else if (beat == 3){
+        if(location.x >= x0 && location.y >= y0){
+          location.add(velocity3);
+        } else{
+          location.x = x0;
+          location.y = y0;
+          beat = 1;
+        }
+    }
+    
+    println("beat: " + beat + " " + location.x + ", " + location.y + " " + frameCount + " " + frameRate);
   }
 
   // Display circle at location vector
