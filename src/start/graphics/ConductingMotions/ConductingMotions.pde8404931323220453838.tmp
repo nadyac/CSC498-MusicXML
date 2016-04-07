@@ -1,0 +1,18 @@
+class ConductingMotions{
+  
+   // Beat patterns, number of motions can be 1, 2, 3, 4 
+   int[] beatMeters = {1,2,3,4};
+   int motions;
+   
+   // Default constructor
+   ConductingMotions(){
+     this.setMeterTo(3);
+   }
+   
+   void setMeterTo(int motions){
+     this.motions = motions;
+   }
+   
+   
+   
+}

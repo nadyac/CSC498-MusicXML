@@ -1,0 +1,68 @@
+
+PGraphics pg;
+PVector location;  // Location of shape
+PVector velocity;  // Velocity of shape
+PVector acceleration;   // Gravity acts at the shape's acceleration
+int xBound;
+int yBound;
+int x0;
+int y0;
+int dx;
+int dy;
+int bpm;
+boolean oscillateX = false;
+float beatLength;
+float framesPerBeat;
+Conductor simpleConductor =  new Conductor(3);
+
+
+void settings() {
+  size(600,360);
+  bpm = 85;
+  beatLength = 60/85; 
+  //calculate how many frames will pass between each beat
+  framesPerBeat = beatLength*60; //beatLength*frameRate
+}
+
+void setup(){
+  background(0);
+  frameRate(60);
+  x0 = 200;
+  y0 = 100;
+  location = new PVector(x0,y0);
+  velocity = new PVector(0,5); //velocities in x y directions
+  acceleration = new PVector(0,0); //
+  xBound = 350;
+  yBound = 300;
+  pg = createGraphics(650, 360);
+}
+
+void draw() {
+  fill(0, 12);
+  rect(0, 0, width, height);
+  fill(255);
+  noStroke();
+  dy = (yBound - y0);
+  
+  // Add velocity to the location.
+  location.add(velocity);
+  // Add acceleration to velocity
+  velocity.add(acceleration);
+  
+  //if y is less than 10 or greater than 300, 
+  if ((location.y > yBound || location.y == y0)) {
+    // We're reducing velocity ever so slightly 
+    // when it hits the bottom of the window
+    velocity.y = velocity.y * -1; 
+    
+    location.y = y0+(dy/framesPerBeat);
+  }
+
+  // Display circle at location vector
+  ellipse(location.x,location.y,60,60);
+  pg.beginDraw();
+  pg.noFill();
+ 
+  pg.ellipse(location.x-150,location.y-100,60,60);
+  pg.endDraw();
+}

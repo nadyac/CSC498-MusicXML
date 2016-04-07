@@ -1,0 +1,36 @@
+class Conductor{
+  
+   // Beat patterns, number of motions can be 1, 2, 3, 4 
+   int motions;
+   
+   // Default constructor, meter set to a default value.
+   Conductor(){
+     setMeterTo(3);
+   }
+   
+   // Non-Default Constructor
+   Conductor(int m){
+     
+   }
+   
+   // Set the meter of the beat pattern (# of motions)
+   void setMeterTo(int m){
+     if((m >= 1) && (m <= 4)){
+       motions = m;
+     } else {
+       motions = 3;
+     }
+   }
+   
+   int getMeter(){
+     return motions; 
+   } 
+   
+   // Conducting motions specifications
+   ArrayList<int[]> doConductingMotions(int meter){
+     ArrayList<int[]> motionLocations = new ArrayList<int[]>();
+     
+     return motionLocations;
+   }
+   
+}
