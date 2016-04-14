@@ -7,6 +7,8 @@ import io
 fileName = "timewise-ActorPrelude.xml"
 DOMTree = ET.parse(fileName)
 root = DOMTree.getroot()
+partStatus = []
+dynamic = ""
 
 outfile = fileName.replace(".",'')
 with open(outfile + "-output.xml", mode='wt') as outputFile:
@@ -20,27 +22,17 @@ with open(outfile + "-output.xml", mode='wt') as outputFile:
 	print "Measures:"
 	print "==========="
 	for measure in root.iter('measure'):
-		measure_str = "measure " + "%s" % measure.attrib['number']
-		print measure_str
-		outputFile.write(measure_str + "\n")
+		measureNumber = "measure " + "%s" % measure.attrib['number']
+		print measureNumber
+		outputFile.write(measureNumber + ", ")
 
 		# attributes tag that contains the beats
 		measureAttributeTag = measure[0][1]
 		time = measureAttributeTag.find('time')
 		if time is not None:
 			time_signature = "time signature: " + "%s" % time[0].text + "/%s" % time[1].text
-			print "\t" + time_signature
-			outputFile.write(time_signature + "\n")
-
-		# get tempo from the sound tag (inside a measure) if there is one
-		# if measure[0].find('sound') is not None:
-		# 	tempo = measure[0][2]
-		# 	if tempo.tag == 'sound':
-		# 		tempo_str = "tempo: %s" % tempo.attrib['tempo']
-		# 		print "\t" + tempo_str
-		# 		outputFile.write(temp_str + "\n")
-		# else: 
-		# 	print "no tempo data."
+			#print "\t" + time_signature
+			outputFile.write(time_signature + ", ")
 
 		# print measure[0]
 		for direction in measure.iter('direction'):
@@ -54,7 +46,7 @@ with open(outfile + "-output.xml", mode='wt') as outputFile:
 						for tags in metronome:
 							tempo = tags.text
 							print "\t" + tags.text
-							outputFile.write(tempo + "\n")
+							outputFile.write(tempo + ", ")
 
 		# get dynamics tag (inside a measure) if there is one
 		# if measure.find('part') is not None:
@@ -63,9 +55,24 @@ with open(outfile + "-output.xml", mode='wt') as outputFile:
 				for subElems in partElem: #direction-type
 					if subElems.find('dynamics') is not None:
 						dynamicsTag = subElems.find('dynamics')
-						dynamics_str = dynamicsTag[0].tag
-						print "\t" + part.attrib['id'] + " dynamic-> " + dynamicsTag[0].tag
-						outputFile.write(part.attrib['id'] + " " + dynamics_str + "\n")
+						dynamic = dynamicsTag[0].tag
+						#print "\t" + part.attrib['id'] + " dynamic-> " + dynamic
+						outputFile.write(part.attrib['id'] + " " + dynamic + ", ")
+			# find all notes played by this part in current measure
+			notes = part.findall('note')
+			for note in notes: # look at tags inside each individual note for current part
+				for noteTags in note:
+				 if note.find('rest') is not None:
+				 	restTag = note.find('rest')
+				 	if restTag.get('measure') is not None:
+				 		rest = restTag.get('measure')
+						partStatus.append(dynamic)
+				 	else:
+				 		partStatus.append("REST")
+						 	#partStatus.append(part.attrib['id'])
+		print partStatus
+		partStatus = []
+
 
 outputFile.close()
 print "\n"
