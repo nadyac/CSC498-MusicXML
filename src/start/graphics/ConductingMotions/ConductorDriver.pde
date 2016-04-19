@@ -1,6 +1,6 @@
 
 
-Conductor conductor = new Conductor();
+//Conductor conductor = new Conductor();
 /**
 void setup(){
  conductor.setMeterTo(1);
