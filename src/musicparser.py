@@ -23,6 +23,7 @@ def main():
 	partStatusArrayNum = 0
 	partsToCue = []
 	dynamic = ""
+	tempo = ""
 
 	outfile = fileName.replace(".",'')
 	with open(outfile + "-output.xml", mode='wt') as outputFile:
@@ -41,27 +42,37 @@ def main():
 			outputFile.write("\n")
 			outputFile.write(measureNumber + ", ")
 
-			# attributes tag that contains the beats
+			# attributes tag that contains the time signature (beats)
 			measureAttributeTag = measure[0][1]
 			time = measureAttributeTag.find('time')
 			if time is not None:
-				time_signature = "time signature: " + "%s" % time[0].text + "/%s" % time[1].text
-				#print "\t" + time_signature
-				outputFile.write(time_signature + ", ")
+				timeSignature = "time signature: " + "%s" % time[0].text + "/%s" % time[1].text
+				print timeSignature
+			else: 
+				timeSignature = "time signature: none"
 
-			# print measure[0]
+			outputFile.write(timeSignature + ", ")
+
+			# print measure[0] line 528
 			for direction in measure.iter('direction'):
-				if direction.find('direction-type') is None:
-					continue
-				else:
-					directionType = direction.findall('direction-type')
-					for m in directionType: 
-						metronome = m.find('metronome')
-						if metronome is not None:
-							for tags in metronome:
-								tempo = tags.text
-								print "\t" + tags.text
-								outputFile.write(tempo + ", ")
+				if direction.find('sound') is not None:
+					soundTag = direction.find('sound')
+					if soundTag.get('tempo') is not None:
+						tempo = soundTag.get('tempo')
+						print "tempo: " + tempo
+						break
+			# 	else:
+			# 	 	directionType = direction.findall('direction-type')
+			# 	 	for m in directionType: 
+			# 	 		metronome = m.find('metronome')
+			# 	 		if metronome is not None:
+			# 	 			for tags in metronome:
+			# 	 				tempo = "tempo: " + tags.text
+			# 	 				continue
+			# 	 		else:
+			# 	 			tempo = "tempo: null"
+
+			outputFile.write("tempo: " + tempo + ", ")
 
 			# get dynamics tag (inside a measure) if there is one
 			# if measure.find('part') is not None:
@@ -94,8 +105,8 @@ def main():
 
 			# get the cuepart array
 			if partStatusArrayNum == 2:
-				print partStatusArray[0]
-				print partStatusArray[1]
+				#print partStatusArray[0]
+				#print partStatusArray[1]
 				#partsToCue = compareLists(partStatusArray[0], partStatusArray[1])
 				#print partsToCue
 				partStatusArrayNum = 1
