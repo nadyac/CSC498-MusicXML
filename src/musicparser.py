@@ -84,7 +84,7 @@ def main():
 
 			# for every measure get partStatus
 			#print partStatus
-			outputFile.write("[")
+			outputFile.write("EntraceCues [")
 
 			for item in partStatus:
 				outputFile.write(item + " ")
