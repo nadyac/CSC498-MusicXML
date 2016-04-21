@@ -11,11 +11,6 @@ def compareLists(listA, listB):
 			cueParts.append(listB[i])
 		else:
 			cueParts.append("_")
-	# 		if itemA is "REST" and itemB is not "REST":
-	# 			cueParts.append(itemB)
-	# 		else:
-	# 			cueParts.append("_")
-	# 		break
 	return cueParts
 
 
@@ -52,10 +47,10 @@ def main():
 			measureAttributeTag = measure[0][1]
 			time = measureAttributeTag.find('time')
 			if time is not None:
-				timeSignature = "time signature: " + "%s" % time[0].text + "/%s" % time[1].text
+				timeSignature = "time signature " + "%s" % time[0].text + "/%s" % time[1].text
 				print timeSignature
 			else: 
-				timeSignature = "time signature: none"
+				timeSignature = "time signature none"
 
 			outputFile.write(timeSignature + ", ")
 
@@ -65,10 +60,10 @@ def main():
 					soundTag = direction.find('sound')
 					if soundTag.get('tempo') is not None:
 						tempo = soundTag.get('tempo')
-						print "tempo: " + tempo
+						print "tempo " + tempo
 						break
 
-			outputFile.write("tempo: " + tempo + ", ")
+			outputFile.write("tempo " + tempo + ", ")
 
 			# get dynamics tag (inside a measure) if there is one
 			# if measure.find('part') is not None:
