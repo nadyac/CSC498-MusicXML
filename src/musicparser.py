@@ -6,10 +6,16 @@ import io
 def compareLists(listA, listB):
 	cueParts = []
 	print "Parts to Cue:"
-	for itemA in listA:
-		for itemB in listB:
-			if itemA is "REST" and itemB is not "REST":
-				cueParts.append(itemB)
+	for i in range(len(listA)):
+		if listA[i] is "REST" and listB[i] is not "REST":
+			cueParts.append(listB[i])
+		else:
+			cueParts.append("_")
+	# 		if itemA is "REST" and itemB is not "REST":
+	# 			cueParts.append(itemB)
+	# 		else:
+	# 			cueParts.append("_")
+	# 		break
 	return cueParts
 
 
@@ -61,16 +67,6 @@ def main():
 						tempo = soundTag.get('tempo')
 						print "tempo: " + tempo
 						break
-			# 	else:
-			# 	 	directionType = direction.findall('direction-type')
-			# 	 	for m in directionType: 
-			# 	 		metronome = m.find('metronome')
-			# 	 		if metronome is not None:
-			# 	 			for tags in metronome:
-			# 	 				tempo = "tempo: " + tags.text
-			# 	 				continue
-			# 	 		else:
-			# 	 			tempo = "tempo: null"
 
 			outputFile.write("tempo: " + tempo + ", ")
 
@@ -107,8 +103,8 @@ def main():
 			if partStatusArrayNum == 2:
 				#print partStatusArray[0]
 				#print partStatusArray[1]
-				#partsToCue = compareLists(partStatusArray[0], partStatusArray[1])
-				#print partsToCue
+				partsToCue = compareLists(partStatusArray[0], partStatusArray[1])
+				print partsToCue
 				partStatusArrayNum = 1
 				temp = partStatusArray[1]
 				partStatusArray = []
