@@ -34,25 +34,26 @@ def main():
 		for part in root.iter('score-part'):
 			print "%s" % part[0].text + ", id: %s" % part.attrib['id']
 
+		outputFile.write("Measure Number, time signature, tempo, dynamics, entrance cues")
 		print "\n"
 		print "Measures:"
 		print "==========="
 		for measure in root.iter('measure'):
-			measureNumber = "measure " + "%s" % measure.attrib['number']
-			print measureNumber
+			measureNumber = measure.attrib['number']
+			print "measure " + "%s" % measure.attrib['number']
 			outputFile.write("\n")
-			outputFile.write(measureNumber + ", ")
+			outputFile.write(measureNumber + ",")
 
 			# attributes tag that contains the time signature (beats)
 			measureAttributeTag = measure[0][1]
 			time = measureAttributeTag.find('time')
 			if time is not None:
-				timeSignature = "time signature " + "%s" % time[0].text + "/%s" % time[1].text
-				print timeSignature
+				timeSignature = time[0].text + "/%s" % time[1].text
+				print "time signature " + "%s" % time[0].text + "/%s" % time[1].text
 			else: 
-				timeSignature = "time signature none"
+				timeSignature = "none"
 
-			outputFile.write(timeSignature + ", ")
+			outputFile.write(timeSignature + ",")
 
 			# print measure[0] line 528
 			for direction in measure.iter('direction'):
@@ -63,7 +64,7 @@ def main():
 						print "tempo " + tempo
 						break
 
-			outputFile.write("tempo " + tempo + ", ")
+			outputFile.write(tempo + ",")
 
 			# get dynamics tag (inside a measure) if there is one
 			# if measure.find('part') is not None:
@@ -74,7 +75,7 @@ def main():
 							dynamicsTag = subElems.find('dynamics')
 							dynamic = dynamicsTag[0].tag
 							#print "\t" + part.attrib['id'] + " dynamic-> " + dynamic
-							outputFile.write(part.attrib['id'] + " " + dynamic + ", ")
+							outputFile.write(part.attrib['id'] + "-" + dynamic + " ")
 				# find all notes played by this part in current measure
 				note = part.find('note')
 				if note.find('rest') is not None:
@@ -82,17 +83,14 @@ def main():
 				else:
 					partStatus.append(part.attrib['id'])
 
-			# for every measure get partStatus
-			#print partStatus
-			outputFile.write("EntraceCues [")
-
-			for item in partStatus:
-				outputFile.write(item + " ")
-			outputFile.write("]")
-
 			# compare the past two part arrays
 			partStatusArray.append(partStatus)
 			partStatusArrayNum = partStatusArrayNum + 1
+
+			outputFile.write(",")
+			for item in partStatus:
+				outputFile.write(item + " ")
+			#outputFile.write("")
 
 			# get the cuepart array
 			if partStatusArrayNum == 2:
@@ -106,7 +104,8 @@ def main():
 				partStatusArray.append(temp)
 
 			partStatus = []
-			partsToCue
+			partsToCue = []
+
 		print "\n"
 
 	outputFile.close()
