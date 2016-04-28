@@ -44,18 +44,12 @@ class Conductor{
      
      if(meter == 2){
        //do motions for meter 2
-       int[] position0 = {150,150};
+       int[] position0 = {200,100};
        int[] position1 = {200, 300};
-       int[] position2 = {350, 300};
-       int[] position3 = {370, 250};
-       int[] position4 = {350, 265};
-       int[] position5 = {150, 150};
+       int[] position2 = {200, 200};
        motionLocations.add(position0);
        motionLocations.add(position1);
        motionLocations.add(position2);
-       motionLocations.add(position3);
-       motionLocations.add(position4);
-       motionLocations.add(position5);
      }
      
      if(meter == 3){
