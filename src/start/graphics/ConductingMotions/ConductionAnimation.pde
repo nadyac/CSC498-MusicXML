@@ -1,4 +1,5 @@
-
+import javax.sound.midi.*;
+//import arb.soundcipher.*;
 PGraphics pg;
 PVector location;  // Location of shape
 PVector velocity, velocity2, velocity3, velocity4;  // Velocity of shape
@@ -147,6 +148,17 @@ void setup() {
     newY4 = dy4/framesPerBeat;
     velocity4 = new PVector(newX4, newY4);
   }
+  try {
+    File midiFile = new File(dataPath("ActorPreludeMidi.mid"));
+    Sequencer sequencer = MidiSystem.getSequencer();
+    sequencer.open();
+    Sequence sequence = MidiSystem.getSequence(midiFile);
+    sequencer.setSequence(sequence);
+    sequencer.start();
+    } catch(Exception e) {
+        println("Cannot Play MIDI file.");
+     }
+  
 }
 
 void draw() {

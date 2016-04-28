@@ -5,7 +5,7 @@ class FileProcessor{
   int[] measureNumber;
   int[] beatsPerMeasure;
   int[] tempos;
-  String[] entranceCues, timeSigPieces;
+  String[] entranceCues, timeSigPieces, dynamicsPieces, dynamics;
   
   FileProcessor(){
    readFile();
@@ -23,6 +23,9 @@ class FileProcessor{
         measureNumber = new int[n];
         beatsPerMeasure = new int[n];
         tempos = new int[n];
+        dynamicsPieces = new String[n];
+        dynamics = new String[n]; //get exact size later
+        entranceCues = new String[n]; //need to get the size of instruments array
         
         for (int i = 0; i < lines.length; i++){
           /*
@@ -48,7 +51,23 @@ class FileProcessor{
              } else{
                tempos[i] = tempos[i-1]; //if tempo doesn't change, use previously noted tempo; shouldn't be null
              }
-     
+             /*
+               Get dynamics and store them.
+             */
+             if(pieces[3] != ""){
+               dynamics[i] = pieces[3];
+             }
+             
+             /*
+               Get entrance cues and store them
+               **** NEED TO BE READJUSTED.
+             */
+             if(pieces[4] != ""){
+               entranceCues[i] = pieces[4];
+               println(entranceCues[i]);
+             }
+             
+             
            } else{
           println("skip first line");
             }
