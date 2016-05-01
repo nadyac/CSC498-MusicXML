@@ -87,9 +87,6 @@ def main():
 			partStatusArray.append(partStatus)
 			partStatusArrayNum = partStatusArrayNum + 1
 
-			outputFile.write(",")
-			for item in partStatus:
-				outputFile.write(item + " ")
 			#outputFile.write("")
 
 			# get the cuepart array
@@ -98,10 +95,19 @@ def main():
 				#print partStatusArray[1]
 				partsToCue = compareLists(partStatusArray[0], partStatusArray[1])
 				print partsToCue
+
+				# outputFile.write(",")
+				# for item in partsToCue:
+				# 	outputFile.write(item + " ")
+
 				partStatusArrayNum = 1
 				temp = partStatusArray[1]
 				partStatusArray = []
 				partStatusArray.append(temp)
+				
+				outputFile.write(",")
+				for item in partsToCue:
+					outputFile.write(item + " ")
 
 			partStatus = []
 			partsToCue = []
