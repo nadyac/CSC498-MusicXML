@@ -3,9 +3,11 @@ class FileProcessor{
   BufferedReader reader;
   String line, timeSig;
   int[] measureNumber;
-  int[] beatsPerMeasure;
+  int[] beatsPerMeasure, beatPatternInMeasure;
   int[] tempos;
   String[] entranceCues, timeSigPieces, dynamicsPieces, dynamics;
+  int cueMeasureNumber;
+  ArrayList<int[]> measureData = new ArrayList<int[]>();
   
   FileProcessor(){
    readFile();
@@ -22,10 +24,12 @@ class FileProcessor{
         int n = lines.length;
         measureNumber = new int[n];
         beatsPerMeasure = new int[n];
+        beatPatternInMeasure = new int[n];
         tempos = new int[n];
         dynamicsPieces = new String[n];
         dynamics = new String[n]; //get exact size later
         entranceCues = new String[n]; //need to get the size of instruments array
+        
         
         for (int i = 0; i < lines.length; i++){
           /*
@@ -41,6 +45,7 @@ class FileProcessor{
              timeSigPieces = split(pieces[1],"/");
              int len = timeSigPieces.length;
              if(len > 1){
+                 beatPatternInMeasure[0] = Integer.parseInt(timeSigPieces[0]); //beat pattern
                  beatsPerMeasure[i] = Integer.parseInt(timeSigPieces[1]); //beats per measure
              }
              /*
@@ -60,17 +65,24 @@ class FileProcessor{
              
              /*
                Get entrance cues and store them
-               **** NEED TO BE READJUSTED.
+               **** NEED TO BE READJUSTED FOR TWO MEASURES BACK.
              */
-             if(pieces[4] != ""){
-               entranceCues[i] = pieces[4];
-               println(entranceCues[i]);
+             if(i>1){
+               cueMeasureNumber = i - 2; 
+               if(pieces[4] != ""){
+                 entranceCues[i] = pieces[4];
+                 println(entranceCues[i]);
+               }
              }
-             
              
            } else{
           println("skip first line");
             }
+            
+            /**
+            * Create the new measure with all the attributes and add to list
+            */
+            
         }
       
   } 
