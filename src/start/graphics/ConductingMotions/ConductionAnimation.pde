@@ -15,11 +15,13 @@ float beatLength;
 float framesPerBeat;
 boolean oscillateX = false;
 Conductor conductor = new Conductor();
-int meter;
+int meter, tempo, beatPattern, beatsPerMeasure;
 int beat = 1;
 int delayCounter= 0;
 int delay = 5;
+int measureListSize;
 ArrayList<int[]> motionPositions = new ArrayList<int[]>();
+ArrayList<MeasureObject> measureData = new ArrayList<MeasureObject>();
 FileProcessor fp;
 
 void settings(){
@@ -27,30 +29,40 @@ void settings(){
 }
 
 void setup() {
+  /* Process music output file */
   fp = new FileProcessor();
-  background(0);
-  frameRate(60);
-  meter = 2;
-  bpm = 60;  // this will be obtained dynamically
+  
+  /* get all the measure information */
+  measureData = fp.getMeasureDataList(); 
+  measureListSize = measureData.size();
+  MeasureObject m;
+  
+  for(int j=0; j< measureListSize; j++){
+     m = measureData.get(j);
+     tempo = m.getTempo();
+  }
+  /* set initial parameters */
+  meter = 3;
+  bpm = tempo; 
+  println("bpm: " +bpm);
   beatLength = 60/bpm;
   
-  //calculate how many frames will be drawn between each beat
+  background(0);
+  frameRate(60);
+  
+  /* calculate how many frames will be drawn between each beat*/
   framesPerBeat = (beatLength*60)- 1 - delay; //beatLength*frameRate
   
   motionPositions = conductor.doConductingMotions(meter);
   x0 = motionPositions.get(0)[0];
   y0 = motionPositions.get(0)[1];
-  //println("x0: "+ x0 + " y0: " + y0);
   
   location = new PVector(x0, y0);
-  //velocity = new PVector(0,5); //velocities in x y directions
   acceleration = new PVector(0,0);
   
   if(meter == 1){
     x1 = motionPositions.get(1)[0];
     y1 = motionPositions.get(1)[1];
-    //println("x1: " + x1 + " y1: " + y1);
-  
     dy = y1 - y0;
     newY = dy/framesPerBeat;
     velocity = new PVector(0,newY);
@@ -59,16 +71,12 @@ void setup() {
   if(meter == 2){
     x1 = motionPositions.get(1)[0];
     y1 = motionPositions.get(1)[1];
-    //println("x1: " + x1 + " y1: " + y1);
-  
     dy = y1 - y0;
     newY = dy/framesPerBeat;
     velocity = new PVector(0,newY);
     
     x2 = motionPositions.get(2)[0];
     y2 = motionPositions.get(2)[1];
-    ////println("x1: " + x1 + " y1: " + y1);
-  
     dy2 = y2 - y1;
     newY2 = dy2/framesPerBeat;
     velocity2 = new PVector(0,newY2);
@@ -76,9 +84,7 @@ void setup() {
   
   if(meter == 3){
     x1 = motionPositions.get(1)[0];
-    y1 = motionPositions.get(1)[1];
-    //println("x1: " + x1 + " y1: " + y1);
-    
+    y1 = motionPositions.get(1)[1];  
     dx = x1 - x0;
     newX = dx/framesPerBeat;
     
@@ -118,7 +124,6 @@ void setup() {
     
     x2 = motionPositions.get(2)[0];
     y2 = motionPositions.get(2)[1];
-    //println("x2: " + x2 + " y2: " + y2);
     dx2 = x2 - x1;
     newX2 = dx2/framesPerBeat;
     dy2 = y2 - y1;
@@ -129,7 +134,6 @@ void setup() {
     //go back to original position x0, y0
     x3 = motionPositions.get(3)[0];
     y3 = motionPositions.get(3)[1];
-    //println("x3: " + x3 + " y3: " + y3);
     dx3 = x3 - x2;
     newX3 = dx3/framesPerBeat;
     
@@ -140,7 +144,6 @@ void setup() {
     //go back to original position x0, y0
     x4 = motionPositions.get(0)[0];
     y4 = motionPositions.get(0)[1];
-    //println("x4: " + x4 + " y4: " + y4);
     dx4 = x0 - x3;
     newX4 = dx4/framesPerBeat;
     
@@ -163,7 +166,7 @@ void setup() {
 }
 
 void draw() {
-  fill(0, 255); //set back to 12
+  fill(0,12); //set back to 12
   rect(0, 0, width, height);
   fill(255);
   noStroke();

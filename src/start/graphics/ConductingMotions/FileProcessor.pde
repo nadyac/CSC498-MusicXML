@@ -7,7 +7,7 @@ class FileProcessor{
   int[] tempos;
   String[] entranceCues, timeSigPieces, dynamicsPieces, dynamics;
   int cueMeasureNumber;
-  ArrayList<int[]> measureData = new ArrayList<int[]>();
+  ArrayList<MeasureObject> measureData = new ArrayList<MeasureObject>();
   
   FileProcessor(){
    readFile();
@@ -17,7 +17,11 @@ class FileProcessor{
     reader = createReader("timewise-ActorPreludexml-output.xml");    
   }
   
-  void readFile() {
+  ArrayList<MeasureObject> getMeasureDataList(){
+    return this.measureData;
+  }
+  
+  ArrayList<MeasureObject> readFile() {
 
         String[] pieces;
         String[] lines = loadStrings("timewise-ActorPreludexml-output.xml");
@@ -88,8 +92,11 @@ class FileProcessor{
             //String entrances = entranceCues[i].replaceAll("_","");
             MeasureObject currentMeasure = new MeasureObject(measureNumber[i],beatPatternInMeasure[0],beatsPerMeasure[i],tempos[i],dynamics[i],entranceCues[i]);
             thisMeasure = currentMeasure.printMeasureObj();
-            println(thisMeasure);
+            measureData.add(currentMeasure);
+            //println(thisMeasure);
         }
+        
+        return measureData;
       
   } 
 }
