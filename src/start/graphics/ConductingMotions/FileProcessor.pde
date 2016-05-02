@@ -1,7 +1,7 @@
 
 class FileProcessor{
   BufferedReader reader;
-  String line, timeSig;
+  String line, timeSig, thisMeasure;
   int[] measureNumber;
   int[] beatsPerMeasure, beatPatternInMeasure;
   int[] tempos;
@@ -71,8 +71,10 @@ class FileProcessor{
                cueMeasureNumber = i - 2; 
                if(pieces[4] != ""){
                  entranceCues[i] = pieces[4];
-                 println(entranceCues[i]);
+                 //println(entranceCues[i]);
                }
+             }else{
+               entranceCues[i] = "";
              }
              
            } else{
@@ -81,9 +83,70 @@ class FileProcessor{
             
             /**
             * Create the new measure with all the attributes and add to list
+            * measure Number, beat pattern, beats per measure, tempo, dynamics, entrance cues
             */
-            
+            //String entrances = entranceCues[i].replaceAll("_","");
+            MeasureObject currentMeasure = new MeasureObject(measureNumber[i],beatPatternInMeasure[0],beatsPerMeasure[i],tempos[i],dynamics[i],entranceCues[i]);
+            thisMeasure = currentMeasure.printMeasureObj();
+            println(thisMeasure);
         }
       
   } 
+}
+
+class MeasureObject{
+  int measureNumber;
+  int timeSignaturePattern, timeSignatureBeats;
+  int tempo;
+  String dynamics;
+  String entranceCues;
+  
+  MeasureObject(int mN, int tSP, int tSB, int t, String dy, String eC){
+    this.measureNumber = mN;
+    this.timeSignaturePattern = tSP;
+    this.timeSignatureBeats = tSB;
+    this.tempo = t;
+    this.dynamics = dy;
+    this.entranceCues = eC;
+  }
+  
+  int getMeasureNumber(){
+    return this.measureNumber;
+  }
+  
+  int getTimeSignaturePattern(){
+    return this.timeSignaturePattern;
+  }
+  
+  int getTimeSignatureBeats(){
+    return this.timeSignatureBeats;
+  }
+  
+  int getTempo(){
+    return this.tempo;
+  }
+  
+  String getDynamics(){
+    return this.dynamics;
+  }
+  
+  String getEntranceCues(){
+    return this.entranceCues;
+  }
+  
+  String printMeasureObj(){
+    String str = "";
+    str +=this.measureNumber;
+    str +=", ";
+    str +=this.timeSignaturePattern;
+    str +="/";
+    str +=this.timeSignatureBeats;
+    str +=", ";
+    str +=this.tempo;
+    str +=", ";
+    str +=this.dynamics;
+    str +=", ";
+    str +=this.entranceCues;
+    return str;
+  }
 }
