@@ -70,7 +70,7 @@ class FileProcessor{
              if(i>1){
                cueMeasureNumber = i - 2; 
                if(pieces[4] != ""){
-                 entranceCues[i] = pieces[4];
+                 entranceCues[i] = pieces[4].replaceAll("_","");
                  //println(entranceCues[i]);
                }
              }else{
