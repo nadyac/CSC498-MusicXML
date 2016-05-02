@@ -15,17 +15,19 @@ float beatLength;
 float framesPerBeat;
 boolean oscillateX = false;
 Conductor conductor = new Conductor();
-int meter, tempo, beatPattern, beatsPerMeasure;
+int meter, conductingPattern, tempo, beatPattern, beatsPerMeasure, measureNum;
 int beat = 1;
 int delayCounter= 0;
 int delay = 5;
 int measureListSize;
 ArrayList<int[]> motionPositions = new ArrayList<int[]>();
 ArrayList<MeasureObject> measureData = new ArrayList<MeasureObject>();
+String dynamics, entranceCues;
 FileProcessor fp;
+PFont measureNumberFont, tempoFont, timeSigFont, dynamicsFont, cuesFont;
 
 void settings(){
-  size(600,650);
+  size(650,650);
 }
 
 void setup() {
@@ -39,16 +41,26 @@ void setup() {
   
   for(int j=0; j< measureListSize; j++){
      m = measureData.get(j);
+     measureNum = m.getMeasureNumber();
      tempo = m.getTempo();
+     conductingPattern = m.getTimeSignaturePattern();
+     beatsPerMeasure = m.getTimeSignatureBeats();
+     dynamics = m.getDynamics();
+     entranceCues = m.getEntranceCues();
+     
   }
   /* set initial parameters */
-  meter = 3;
+  meter = conductingPattern;
   bpm = tempo; 
   println("bpm: " +bpm);
   beatLength = 60/bpm;
   
   background(0);
   frameRate(60);
+  measureNumberFont = createFont("Arial",18,true); // Arial, 16 point, anti-aliasing on
+  dynamicsFont = createFont("Arial",18,true); // Arial, 16 point, anti-aliasing on
+  cuesFont = createFont("Arial",18,true); // Arial, 16 point, anti-aliasing on
+  tempoFont = createFont("Arial",18,true); // Arial, 16 point, anti-aliasing on
   
   /* calculate how many frames will be drawn between each beat*/
   framesPerBeat = (beatLength*60)- 1 - delay; //beatLength*frameRate
@@ -164,14 +176,23 @@ void setup() {
      }
   
 }
-
+/***************************************************************
+* Draw the animation at a frequency = frames per second.
+****************************************************************/
 void draw() {
   fill(0,12); //set back to 12
   rect(0, 0, width, height);
   fill(255);
   noStroke();
+  textFont(measureNumberFont,32);                  // STEP 3 Specify font to be used
+  text("Measure: " + measureNum,15,55);   // STEP 5 Display Text
   
+  textFont(dynamicsFont,23);                  // STEP 3 Specify font to be used
+  text("Dynamics:\n " + dynamics,15,500);   // STEP 5 Display Text
   
+  String newCues = entranceCues.replaceAll(" ",",");
+  textFont(dynamicsFont,23);                  // STEP 3 Specify font to be used
+  text("Cues:\n " + newCues,15,580);   // STEP 5 Display Text
   if (meter == 1){
     
     // Add velocity to the location.
