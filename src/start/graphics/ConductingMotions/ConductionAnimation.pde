@@ -61,6 +61,7 @@ void setup() {
   dynamicsFont = createFont("Arial",18,true); // Arial, 16 point, anti-aliasing on
   cuesFont = createFont("Arial",18,true); // Arial, 16 point, anti-aliasing on
   tempoFont = createFont("Arial",18,true); // Arial, 16 point, anti-aliasing on
+  timeSigFont = createFont("Arial", 18,true);
   
   /* calculate how many frames will be drawn between each beat*/
   framesPerBeat = (beatLength*60)- 1 - delay; //beatLength*frameRate
@@ -189,6 +190,12 @@ void draw() {
   textFont(measureNumberFont,32);                  // STEP 3 Specify font to be used
   text("Measure: " + measureNum,15,55);   // STEP 5 Display Text
   
+    textFont(timeSigFont,20);                  // STEP 3 Specify font to be used
+  text("Meter: " + conductingPattern,15,80);   // STEP 5 Display Text
+  
+  textFont(tempoFont,20);                  // STEP 3 Specify font to be used
+  text("Tempo: " + tempo,15,105);   // STEP 5 Display Text
+  
   textFont(dynamicsFont,23);                  // STEP 3 Specify font to be used
   text("Dynamics:\n " + dynamics,15,500);   // STEP 5 Display Text
   
@@ -196,7 +203,7 @@ void draw() {
   textFont(dynamicsFont,23);                  // STEP 3 Specify font to be used
   text("Cues:\n " + newCues,15,580);   // STEP 5 Display Text
   
-  
+
   if (meter == 1){
     location.add(velocity);
     
@@ -301,7 +308,6 @@ void draw() {
       } else if (beat == 4 && delayCounter== 0){
         if(location.x >= x0 && location.y >= y0){
           location.add(velocity4);
-         // beatTracker = 4; /* sets beatTracker to the last beat of the measure and trigger a measure change*/
         } else{
           location.x = x0;
           location.y = y0;
@@ -315,6 +321,10 @@ void draw() {
       }
     }
     
+    /**
+    * Update the measure information: measure number, meter, dynamics, beats, and cues
+    * This will only happen when there is a change of measure. 
+    */
     if((changeMeasure == 1) && (measureTracker < measureListSize-1)){
        measureTracker++;
        m = measureData.get(measureTracker);
@@ -324,9 +334,9 @@ void draw() {
        beatsPerMeasure = m.getTimeSignatureBeats();
        dynamics = m.getDynamics();
        entranceCues = m.getEntranceCues();
-       //m.printMeasureObj();
-       println(beatTracker);
        changeMeasure = 0;
+       //meter = conductingPattern;
+       //println(meter);
     }
     
     //println("beat: " + beat + " " + location.x + ", " + location.y + " " + frameCount + " " + frameRate);
