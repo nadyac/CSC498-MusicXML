@@ -1,0 +1,37 @@
+
+class FileProcessor{
+  BufferedReader reader;
+  String line;
+   
+  FileProcessor(){
+   setupFileReader();
+   readFile();
+  }
+  void setupFileReader() {
+    // Open the file from the createWriter() example
+    reader = createReader("timewise-ActorPreludexml-output.xml");    
+  }
+  void readFile() {
+    try {
+        println("HEYYYYY");
+        String[] lines = loadStrings("file.txt");
+        println("there are " + lines.length + " lines");
+        println(lines);
+      
+      if (line == null) {
+        // Stop reading because of an error or file is empty
+        println("input file is empty");
+        noLoop();  
+      } else {
+        //String[] pieces = split(line, ",");
+        //String measureNum = pieces[0];
+        while(line != null){
+          println(line);
+        }
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+      line = null;
+    }
+  } 
+}

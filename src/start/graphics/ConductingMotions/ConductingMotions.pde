@@ -64,7 +64,7 @@ class Conductor{
      
      if(meter == 4){
        //do motions for meter 4
-       int[] position0 = {330,170};
+       int[] position0 = {330,100};
        int[] position1 = {330, 350};
        int[] position2 = {240, 300};
        int[] position3 = {420, 300};

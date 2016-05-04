@@ -15,6 +15,7 @@ class FileProcessor{
   void setupFileReader() {
     // Open the file
     reader = createReader("timewise-ActorPreludexml-output.xml");    
+    //reader = createReader("timewise-ActorPreludexml-output.xml"); 
   }
   
   ArrayList<MeasureObject> getMeasureDataList(){

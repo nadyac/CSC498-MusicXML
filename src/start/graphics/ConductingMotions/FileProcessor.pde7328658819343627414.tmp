@@ -1,0 +1,49 @@
+
+class FileProcessor{
+  BufferedReader reader;
+  String line, timeSig;
+  int[] measureNumber;
+  int[] timeSignatures;
+  int[] tempos;
+  String[] entranceCues, timeSigPieces;
+  
+  FileProcessor(){
+   //setupFileReader();
+   readFile();
+  }
+  void setupFileReader() {
+    // Open the file from the createWriter() example
+    reader = createReader("timewise-ActorPreludexml-output.xml");    
+  }
+  void readFile() {
+
+        String[] pieces;
+        String[] lines = loadStrings("timewise-ActorPreludexml-output.xml");
+        int n = lines.length;
+        measureNumber = new int[n];
+        
+        for (int i = 0; i < lines.length; i++){
+          /*
+            Parse each piece of the measure data
+          */
+           pieces = split(lines[i], ",");
+           measureNumber[0] = 0;
+           if(i > 0){
+             measureNumber[i] = Integer.parseInt(pieces[0]);
+             /*
+               Parse the time signature fraction
+             */
+             if((pieces[1] != "none") && pieces[1] != ""){
+               
+               timeSigPieces = split(pieces[1],"/");
+               println(pieces[0]);
+             } else {
+               println(0);
+             }
+           } else{
+          println("skip first line");
+            }
+        }
+      
+  } 
+}
