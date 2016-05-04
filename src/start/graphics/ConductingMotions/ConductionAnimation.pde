@@ -1,5 +1,5 @@
 import javax.sound.midi.*;
-//import arb.soundcipher.*;
+
 PGraphics pg;
 PVector location;  // Location of shape
 PVector velocity, velocity2, velocity3, velocity4;  // Velocity of shape
@@ -19,11 +19,12 @@ int meter, conductingPattern, tempo, beatPattern, beatsPerMeasure, measureNum;
 int beat = 1;
 int delayCounter= 0;
 int delay = 5;
-int measureListSize;
+int measureListSize, measureTracker, beatTracker, changeMeasure;
 ArrayList<int[]> motionPositions = new ArrayList<int[]>();
 ArrayList<MeasureObject> measureData = new ArrayList<MeasureObject>();
 String dynamics, entranceCues;
 FileProcessor fp;
+MeasureObject m;
 PFont measureNumberFont, tempoFont, timeSigFont, dynamicsFont, cuesFont;
 
 void settings(){
@@ -37,10 +38,10 @@ void setup() {
   /* get all the measure information */
   measureData = fp.getMeasureDataList(); 
   measureListSize = measureData.size();
-  MeasureObject m;
-  
-  for(int j=0; j< measureListSize; j++){
-     m = measureData.get(j);
+  measureTracker = 1;
+  beatTracker = 1;
+  changeMeasure = 0;
+     m = measureData.get(measureTracker);
      measureNum = m.getMeasureNumber();
      tempo = m.getTempo();
      conductingPattern = m.getTimeSignaturePattern();
@@ -48,7 +49,6 @@ void setup() {
      dynamics = m.getDynamics();
      entranceCues = m.getEntranceCues();
      
-  }
   /* set initial parameters */
   meter = conductingPattern;
   bpm = tempo; 
@@ -180,6 +180,8 @@ void setup() {
 * Draw the animation at a frequency = frames per second.
 ****************************************************************/
 void draw() {
+  
+  changeMeasure = 0;
   fill(0,12); //set back to 12
   rect(0, 0, width, height);
   fill(255);
@@ -193,17 +195,15 @@ void draw() {
   String newCues = entranceCues.replaceAll(" ",",");
   textFont(dynamicsFont,23);                  // STEP 3 Specify font to be used
   text("Cues:\n " + newCues,15,580);   // STEP 5 Display Text
-  if (meter == 1){
-    
-    // Add velocity to the location.
-    location.add(velocity);
-    //println(location.y + " " + frameCount + " " + frameRate);
   
+  
+  if (meter == 1){
+    location.add(velocity);
+    
     if (location.y > y1) {
-      // Reduce velocity ever so slightly  when it hits the bottom
       location.y = y0;
       location.x = x0;
-  
+      changeMeasure = 1; /* trigger a measure change*/
     }
   }
   
@@ -220,11 +220,13 @@ void draw() {
     } else if(beat == 2 && delayCounter == 0){
         if(location.y >= y2){
           location.add(velocity2);
+          //beatTracker = 2; /* sets beatTracker to the last beat of the measure and trigger a measure change*/
         } else{
           location.x = x0;
           location.y = y0;
           beat = 1;
           delayCounter = delay;
+          changeMeasure = 1;
         }
     }else if(delayCounter > 0){
       delayCounter--;
@@ -254,11 +256,13 @@ void draw() {
     } else if (beat == 3 && delayCounter== 0){
         if(location.x >= x0 && location.y >= y0){
           location.add(velocity3);
+          beatTracker = 3; /* sets beatTracker to the last beat of the measure and trigger a measure change*/
         } else{
           location.x = x0;
           location.y = y0;
           beat = 1;
           delayCounter = delay;
+          changeMeasure = 1;
         }
     } else if(delayCounter > 0){
       delayCounter--;
@@ -297,16 +301,32 @@ void draw() {
       } else if (beat == 4 && delayCounter== 0){
         if(location.x >= x0 && location.y >= y0){
           location.add(velocity4);
+         // beatTracker = 4; /* sets beatTracker to the last beat of the measure and trigger a measure change*/
         } else{
           location.x = x0;
           location.y = y0;
           beat = 1;
           delayCounter = delay;
+          changeMeasure = 1;
         }
       
       } else if(delayCounter > 0){
       delayCounter--;
       }
+    }
+    
+    if((changeMeasure == 1) && (measureTracker < measureListSize-1)){
+       measureTracker++;
+       m = measureData.get(measureTracker);
+       measureNum = m.getMeasureNumber();
+       tempo = m.getTempo();
+       conductingPattern = m.getTimeSignaturePattern();
+       beatsPerMeasure = m.getTimeSignatureBeats();
+       dynamics = m.getDynamics();
+       entranceCues = m.getEntranceCues();
+       //m.printMeasureObj();
+       println(beatTracker);
+       changeMeasure = 0;
     }
     
     //println("beat: " + beat + " " + location.x + ", " + location.y + " " + frameCount + " " + frameRate);
