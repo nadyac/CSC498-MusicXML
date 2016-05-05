@@ -16,8 +16,8 @@ def compareLists(listA, listB):
 
 def main():
 	# Open XML document using minidom parser
-	fileName = "timewise-ActorPrelude.xml"
-	#fileName = "timeWiseMarvelVsCapcom.xml"
+	#fileName = "timewise-ActorPrelude.xml"
+	fileName = "timeWiseMarvelVsCapcom.xml"
 	DOMTree = ET.parse(fileName)
 	root = DOMTree.getroot()
 	partStatus = []
@@ -38,13 +38,15 @@ def main():
 			print "========================"
 			for part in root.iter('score-part'):
 				print "%s" % part[0].text + ", id: %s" % part.attrib['id']
-
-			outputFile.write("Measure Number, time signature, tempo, dynamics, entrance cues")
-			print "\n"
-			print "Measures:"
-			print "==========="
-			for measure in root.iter('measure'):
-
+		except UnicodeEncodeError as e:
+			print "UnicodeError"	
+					
+		outputFile.write("Measure Number, time signature, tempo, dynamics, entrance cues")
+		print "\n"
+		print "Measures:"
+		print "==========="
+		for measure in root.iter('measure'):
+			try:
 				measureNumber = measure.attrib['number']
 				print "measure " + "%s" % measure.attrib['number']
 				outputFile.write("\n")
@@ -115,10 +117,10 @@ def main():
 
 				partStatus = []
 				partsToCue = []
-			
-		except UnicodeEncodeError as e:
-			print "UnicodeError"
-			pass
+		
+			except UnicodeEncodeError as e:
+				print "UnicodeError"
+				continue
 
 		print "\n"
 
