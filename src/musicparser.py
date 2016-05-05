@@ -1,8 +1,8 @@
 #!/usr/bin/python
-
 import xml.etree.ElementTree as ET
 import io
 
+# Take two lists and compare them
 def compareLists(listA, listB):
 	cueParts = []
 	print "Parts to Cue:"
@@ -26,34 +26,41 @@ def main():
 	partsToCue = []
 	dynamic = ""
 	tempo = ""
+	time = ""
+	beats =""
+	beatsType=""
+	timeSignature=""
 
 	outfile = fileName.replace(".",'')
 	with open(outfile + "-output.xml", mode='wt') as outputFile:
+		try:
+			print "Instrument parts and ID:"
+			print "========================"
+			for part in root.iter('score-part'):
+				print "%s" % part[0].text + ", id: %s" % part.attrib['id']
 
-		print "Instrument parts and ID:"
-		print "========================"
-		for part in root.iter('score-part'):
-			print "%s" % part[0].text + ", id: %s" % part.attrib['id']
+			outputFile.write("Measure Number, time signature, tempo, dynamics, entrance cues")
+			print "\n"
+			print "Measures:"
+			print "==========="
+			for measure in root.iter('measure'):
 
-		outputFile.write("Measure Number, time signature, tempo, dynamics, entrance cues")
-		print "\n"
-		print "Measures:"
-		print "==========="
-		for measure in root.iter('measure'):
-			try:
 				measureNumber = measure.attrib['number']
 				print "measure " + "%s" % measure.attrib['number']
 				outputFile.write("\n")
 				outputFile.write(measureNumber + ",")
 
 				# attributes tag that contains the time signature (beats)
-				measureAttributeTag = measure[0][1]
-				time = measureAttributeTag.find('time')
-				if time is not None:
-					timeSignature = time[0].text + "/%s" % time[1].text
-					print "time signature " + "%s" % time[0].text + "/%s" % time[1].text
-				else: 
-					timeSignature = "none"
+				#measureAttributeTag = measure[0][1]
+				for part in measure.find('part'):
+					for attribute in part.iter('attributes'):
+						for timeTag in attribute.iter('time'):
+							#print list(timeTag)
+							for beatTag in timeTag:
+								beats = timeTag.find('beats').text
+								beatsType = timeTag.find('beat-type').text
+								timeSignature = beats + "/" +beatsType
+							print timeSignature
 
 				outputFile.write(timeSignature + ",")
 
@@ -69,7 +76,6 @@ def main():
 				outputFile.write(tempo + ",")
 
 				# get dynamics tag (inside a measure) if there is one
-				# if measure.find('part') is not None:
 				for part in measure: #part
 					for partElem in part: #direction
 						for subElems in partElem: #direction-type
@@ -110,9 +116,9 @@ def main():
 				partStatus = []
 				partsToCue = []
 			
-			except UnicodeEncodeError as e:
-				print "UnicodeError"
-				pass
+		except UnicodeEncodeError as e:
+			print "UnicodeError"
+			pass
 
 		print "\n"
 
