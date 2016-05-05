@@ -1,0 +1,7 @@
+
+Error occurred while executing stylesheet 'invalid2.xsl'.
+
+Code:   0x80004005
+This name may not contain the '=' character:
+
+-->=<--name

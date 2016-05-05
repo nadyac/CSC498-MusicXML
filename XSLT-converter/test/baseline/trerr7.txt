@@ -1,0 +1,7 @@
+
+Error occurred while passing parameter 'foo:bar:baz' to the stylesheet.
+
+Code:   0x80004005
+This name may not contain the ':' character:
+
+bar-->:<--baz

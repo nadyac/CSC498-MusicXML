@@ -1,0 +1,7 @@
+
+Error occurred while setting the stylesheet's starting mode to 'foo::=val'.
+
+Code:   0x80004005
+This name may not contain the ':' character:
+
+-->:<--=val

@@ -1,0 +1,21 @@
+Microsoft (R) XSLT Processor Version 4.0
+
+Usage: MSXSL source stylesheet [options] [param=value...] [xmlns:prefix=uri...]
+
+Options:
+    -?            Show this message
+    -o filename   Write output to named file
+    -m startMode  Start the transform in this mode
+    -xw           Strip non-significant whitespace from source and stylesheet
+    -xe           Do not resolve external definitions during parse phase
+    -v            Validate documents during parse phase
+    -t            Show load and transformation timings
+    -pi           Get stylesheet URL from xml-stylesheet PI in source document
+    -u version    Use a specific version of MSXML: '2.6', '3.0', '4.0'
+    -             Dash used as source argument loads XML from stdin
+    -             Dash used as stylesheet argument loads XSL from stdin
+
+Error occurred while parsing command line.
+
+Code:   0xc0000070
+Namespace declaration 'xmlns:foo' is missing a URI following the '=' character.

@@ -1,0 +1,4 @@
+<!ELEMENT root (elem)*>
+<!ELEMENT elem (#PCDATA)>
+
+<!ENTITY ent "Text">

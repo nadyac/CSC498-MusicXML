@@ -1,0 +1,5 @@
+
+Error occurred while compiling stylesheet 'invalid1.xsl'.
+
+Code:   0x80004005
+Required attribute 'select' is missing.

@@ -1,0 +1,8 @@
+
+Error occurred while parsing document.
+
+Code:   0xc00ce552
+URL:    <from stdin>
+Line:   1
+Column: 3
+End tag was not expected at this location.

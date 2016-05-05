@@ -1,0 +1,13 @@
+files.txt
+*.cxx
+*.hxx
+makefile
+resource\messages.mc
+resource\msxsl.ico
+resource\msxsl.rc
+test\test.cxx
+test\*.xml
+test\*.xsl
+test\*.dtd
+test\makefile
+test\baseline\*.*

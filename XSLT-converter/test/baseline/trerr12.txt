@@ -1,0 +1,5 @@
+
+Error occurred while creating MSXML COM objects.
+
+Code:   0xc0000073
+Could not create the 'MSXML2.DOMDocument.2.6' object.  Make sure that MSXML version 2.6 is correctly installed on the machine.

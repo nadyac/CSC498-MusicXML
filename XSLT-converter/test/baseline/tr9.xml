@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<my-ns:param xmlns:my-ns="http://my.com">val</my-ns:param>
+<my-ns2:param2 xmlns:my-ns2="http://my.com2">val2</my-ns2:param2>
+<mode>This is 'my-ns:foo' mode.</mode>

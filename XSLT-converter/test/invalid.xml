@@ -1,0 +1,8 @@
+<?xml version='1.0'?>
+<!DOCTYPE root SYSTEM "simple.dtd" [
+]>
+<root attr="Not Allowed">
+	<elem>Element 1</elem>
+	<elem>Element 2</elem>
+	<elem>&ent;</elem>
+</root>

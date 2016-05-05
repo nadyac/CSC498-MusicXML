@@ -1,0 +1,160 @@
+				<country>US</country>
+				<date dt:dt="date">1998-06-23</date>
+				<definition>misery</definition>
+				<details>Can Netscape stay alive with Microsoft eating up its browser share?</details>
+				<details>Create a list of needed hardware</details>
+				<first-name>JoeBob</first-name>
+				<first-name>Mary F</first-name>
+				<first.name>Jonathan</first.name>
+				<first.name>Mary F</first.name>
+				<last-name>Loser</last-name>
+				<last-name>Robinson</last-name>
+				<last-name>Robinson</last-name>
+				<last.name>Marsh</last.name>
+				<stock>MSFT 99.30</stock>
+				<term>Trenton</term>
+				Selected Short Stories of
+				Selected Short Stories of
+				Selected Short Stories of
+				XQL For Dummies
+			</definition-list>
+			</p>
+			</publication>
+			</publication>
+			</publication>
+			</publication>
+			</story1>
+			</story1>
+			</story2>
+			</story3>
+			<award>Pulizer</award>
+			<award>Pulizer</award>
+			<award>Trenton Literary Review Honorable Mention</award>
+			<definition-list>
+			<degree from="Harvard">Ph.D.</degree>
+			<degree from="Harvard">Ph.D.</degree>
+			<degree from="Trenton U">B.A.</degree>
+			<emph>I</emph> have.
+			<first-name>Frank</first-name>
+			<first-name>Hack</first-name>
+			<first-name>Joe</first-name>
+			<first-name>Mary F</first-name>
+			<first-name>Mary</first-name>
+			<first-name>Toni</first-name>
+			<first.name>Mary F</first.name>
+			<first.name>Mike</first.name>
+			<last-name>Anderson</last-name>
+			<last-name>Bob</last-name>
+			<last-name>Bob</last-name>
+			<last-name>Bob</last-name>
+			<last-name>er</last-name>
+			<last-name>Robinson</last-name>
+			<last-name>Robinson</last-name>
+			<last.name>Hyman</last.name>
+			<my:country>USA</my:country>
+			<p>But then all nights in Trenton seem dark and
+			<p>It was a dark and stormy night.</p>
+			<publication>
+			<publication>
+			<publication>
+			<publication>
+			<publication>Still in Trenton</publication>
+			<publication>Trenton Forever</publication>
+			<story1>Create a dream PC
+			<story1>Sport Cars - Can you really dream?
+			<story2>The future of the web
+			<story3>Visual Basic 5.0 - Will it stand the test of time?
+			stormy to someone who has gone through what
+		</articles>
+		</articles>
+		</author>
+		</author>
+		</author>
+		</author>
+		</author>
+		</author>
+		</author>
+		</excerpt>
+		<articles>
+		<articles>
+		<author>
+		<author>
+		<author>
+		<author>
+		<author>
+		<author>
+		<author>
+		<award>PC Magazine Best Product of 1997</award>
+		<excerpt>
+		<my:author>Robert Bob</my:author>
+		<my:title>Where in the world is Trenton?</my:title>
+		<my:title>Where is Trenton?</my:title>
+		<my:title>Who's Who in Trenton</my:title>
+		<price dt:dt="fiXed.14.4">3.95</price>
+		<price dt:dt="fixed.14.4">55.95</price>
+		<price intl="canada" exchange="0.7">6.50</price>
+		<price>0.98</price>
+		<price>08</price>
+		<price>10</price>
+		<price>12</price>
+		<price>2.50</price>
+		<price>3.50</price>
+		<price>55</price>
+		<price>55</price>
+		<price>free</price>
+		<publisher>Ziff Davis</publisher>
+		<publisher>Ziff Davis</publisher>
+		<special_edition per_year="1">Yes</special_edition>
+		<subscription price="10.75" per="year" />
+		<subscription price="24" per="year" />
+		<subscription price="24" per="year" />
+		<title>History of Trenton 2</title>
+		<title>History of Trenton Vol 3</title>
+		<title>History of Trenton</title>
+		<title>How To Fix Computers</title>
+		<title>PC Magazine</title>
+		<title>PC Week</title>
+		<title>Road and Track</title>
+		<title>Tracking Trenton Stocks</title>
+		<title>Tracking Trenton</title>
+		<title>Trenton Today, Trenton Tomorrow</title>
+		<title>XQL The Golden Years</title>
+	</book>
+	</book>
+	</book>
+	</book>
+	</book>
+	</book>
+	</book>
+	</magazine>
+	</magazine>
+	</magazine>
+	</magazine>
+	</magazine>
+	</magazine>
+	</my:book>
+	</my:book>
+	</my:book>
+	</my:magazine>
+	<book style="autobiography">
+	<book style="novel" id="myfave">
+	<book style="storybook">
+	<book style="textbook">
+	<book style="textbook">
+	<book style="textbook">
+	<book style="textbook">
+	<magazine style="glossy" frequency="bi-monthly">
+	<magazine style="glossy" frequency="monthly">
+	<magazine style="glossy" frequency="monthly">
+	<magazine style="glossy" frequency="monthly">
+	<magazine style="glossy" frequency="monthly">
+	<magazine style="glossy" frequency="weekly">
+	<my:book dt:style="string" style="hard back" price="19.99">
+	<my:book style="hard back" price="99.95">
+	<my:book style="leather" price="29.50">
+	<my:magazine style="flat" frequency="monthly">
+	<title>Seven Years in Trenton</title>
+<!-- This file represents a fragment of a book store inventory database -->
+</bookstore>
+<?xml-stylesheet nothref="decoy" hrefnot="decoy" type="text/xsl" href  = "copyof.xsl"?>
+<bookstore specialty="novel" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">

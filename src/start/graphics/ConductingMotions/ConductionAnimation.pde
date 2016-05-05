@@ -166,7 +166,7 @@ void setup() {
   }
   try {
     //File midiFile = new File(dataPath("C:\\Users\\Nadya\\OneDrive\\school-stuff\\CSC498\\CSC498-MusicXML\\src\\start\\graphics\\ConductingMotions\\ActorPreludeMidi.mid"));
-    File midiFile = new File(dataPath("C:\\Users\\Nadya\\OneDrive\\school-stuff\\CSC498\\CSC498-MusicXML\\src\\start\\graphics\\ConductingMotions\\MarvelVsCapcom.mid"));
+    File midiFile = new File(dataPath("MarvelVsCapcom.mid"));
     Sequencer sequencer = MidiSystem.getSequencer();
     sequencer.open();
     Sequence sequence = MidiSystem.getSequence(midiFile);
