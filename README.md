@@ -22,7 +22,7 @@ The following instructions assume that Python 2.7 is installed.
 
 3) Results should print out to console. 
 
-## To run the Processing UI
+## To run the Processing UI with multiple windows
 0) Install the Interfascia and G4P Processing. 
 
  <b>To install Interfacia and G4P:</b>
@@ -31,4 +31,15 @@ The following instructions assume that Python 2.7 is installed.
 - Type 'Interfacia' into the search box and it should come up
 - Click 'install' to install Interfacia.
 - Repeat the last two steps to install G4P.
+
+### To convert from partwise to timewise musicXML format
+0) Download & Install the XSLT tool (MSXSL) for converting XML. 
+ - windows: https://www.microsoft.com/en-us/download/details.aspx?id=21714
+ - Mac:
+
+To run the XSLT (MSXSL):
+> msxsl.exe [MUSICXML FILE] [XSL STYLESHEET] -o [output_file_name.xml]
+
+example in Windows:
+msxsl.exe ActorPreludeSheetMusic.xml parttime.xsl -o output-sheet.xml
 
