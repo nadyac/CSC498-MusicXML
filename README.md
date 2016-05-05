@@ -35,7 +35,7 @@ The following instructions assume that Python 2.7 is installed.
 ### To convert from partwise to timewise musicXML format
 0) Download & Install the XSLT tool (MSXSL) for converting XML. 
  - windows: https://www.microsoft.com/en-us/download/details.aspx?id=21714
- - Mac:
+ - Mac (xsltproc): web.simmons.edu/~rubinsta/xml/tutorials/xslt_cli.html
 
 To run the XSLT (MSXSL):
 > msxsl.exe [MUSICXML FILE] [XSL STYLESHEET] -o [output_file_name.xml]
