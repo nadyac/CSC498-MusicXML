@@ -165,7 +165,8 @@ void setup() {
     velocity4 = new PVector(newX4, newY4);
   }
   try {
-    File midiFile = new File(dataPath("C:\\Users\\Nadya\\OneDrive\\school-stuff\\CSC498\\CSC498-MusicXML\\src\\start\\graphics\\ConductingMotions\\ActorPreludeMidi.mid"));
+    //File midiFile = new File(dataPath("C:\\Users\\Nadya\\OneDrive\\school-stuff\\CSC498\\CSC498-MusicXML\\src\\start\\graphics\\ConductingMotions\\ActorPreludeMidi.mid"));
+    File midiFile = new File(dataPath("C:\\Users\\Nadya\\OneDrive\\school-stuff\\CSC498\\CSC498-MusicXML\\src\\start\\graphics\\ConductingMotions\\MarvelVsCapcom.mid"));
     Sequencer sequencer = MidiSystem.getSequencer();
     sequencer.open();
     Sequence sequence = MidiSystem.getSequence(midiFile);

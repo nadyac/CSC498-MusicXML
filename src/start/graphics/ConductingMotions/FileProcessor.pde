@@ -14,8 +14,8 @@ class FileProcessor{
   }
   void setupFileReader() {
     // Open the file
-    reader = createReader("timewise-ActorPreludexml-output.xml");    
-    //reader = createReader("timewise-ActorPreludexml-output.xml"); 
+    //reader = createReader("timewise-ActorPreludexml-output.xml");    
+    reader = createReader("timeWiseMarvelVsCapcomxml-output.xml"); 
   }
   
   ArrayList<MeasureObject> getMeasureDataList(){
@@ -25,7 +25,7 @@ class FileProcessor{
   ArrayList<MeasureObject> readFile() {
 
         String[] pieces;
-        String[] lines = loadStrings("timewise-ActorPreludexml-output.xml");
+        String[] lines = loadStrings("timeWiseMarvelVsCapcomxml-output.xml");
         int n = lines.length;
         measureNumber = new int[n];
         beatsPerMeasure = new int[n];
