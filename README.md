@@ -32,11 +32,14 @@ The following instructions assume that Python 2.7 is installed.
 - Click 'install' to install Interfacia.
 - Repeat the last two steps to install G4P.
 
-## To convert from partwise to timewise musicXML format follow these steps:
-0) Install the XSLT tool (MSXSL) for converting XML. 
+### To convert from partwise to timewise musicXML format
+0) Download & Install the XSLT tool (MSXSL) for converting XML. 
+ - windows: https://www.microsoft.com/en-us/download/details.aspx?id=21714
+ - Mac:
 
 To run the XSLT (MSXSL):
 > msxsl.exe [MUSICXML FILE] [XSL STYLESHEET] -o [output_file_name.xml]
 
-example:
+example in Windows:
 msxsl.exe ActorPreludeSheetMusic.xml parttime.xsl -o output-sheet.xml
+
